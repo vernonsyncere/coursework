@@ -7,6 +7,11 @@ import Cockpit from "../components/Cockpit/Cockpit";
 // import UserOutput from "./UserOutput/UserOutput";
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor')
+  }
+  
   state = {
     persons: [
       { id: "1", name: "max", age: 28 },
@@ -15,8 +20,21 @@ class App extends Component {
     ],
     otherState: "other value",
     usernames: [{ username: "Syncere" }, { username: "LikeyMe" }],
-    showPersons: false,
+    showPersons: false
   };
+
+ static getDerivedStateFromProps(props, state ) {
+   console.log('[App.js] getDerivedStateFromProps', props)
+   return state;
+ }
+
+ componentWillMount() {
+  console.log('[App.js] componentWillMount')
+}
+
+ componentDidMount() {
+   console.log('[App.js] componentDidMount')
+ }
 
   nameChangedHandler = (event, id) => {
     // assigning an index to the variable personIndex
@@ -66,7 +84,9 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   };
   render() {
+    console.log('[App.js] render')
     let persons = null;
+
     // console.log("me", btnClass);
     if (this.state.showPersons) {
       persons = (
