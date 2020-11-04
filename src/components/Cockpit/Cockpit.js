@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Cockpit.module.css";
+
 const Cockpit = (props) => {
   const assignedClasses = [];
   let btnClass = [classes.Button];
@@ -17,15 +18,15 @@ const Cockpit = (props) => {
   }
 
   return (
-    <div className={classes.Cockpit}>
-      <h1> Hi Im a react App</h1>
-      <p className={assignedClasses.join(" ")}>This is working</p>
+    <div className={ classes.Cockpit }>
+      <h1> {props.title}</h1>
+      <p className={ assignedClasses.join(" ") }>This is working</p>
       <button
-        className={btnClass.join(" ")}
-        alt={props.showPersons}
-        onClick={props.clicked}
+        className={ btnClass.join(" ") }
+        alt={ props.showPersons }
+        onClick={ props.clicked }
       >
-        Switch Name
+        Toggle Person
       </button>
     </div>
   );

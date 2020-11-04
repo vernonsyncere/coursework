@@ -89,19 +89,19 @@ class App extends Component {
 
     // console.log("me", btnClass);
     if (this.state.showPersons) {
-      persons = (
+      persons = 
         <Persons
           persons={this.state.persons}
           click={this.deletePersonhandler}
           changed={this.nameChangedHandler}
         />
-      );
     }
 
     return (
       <div className={classes.App}>
         {/* {this.state.showPersons === true ? */}
         <Cockpit
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonHandler}
