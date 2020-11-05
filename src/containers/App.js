@@ -7,11 +7,11 @@ import Cockpit from "../components/Cockpit/Cockpit";
 // import UserOutput from "./UserOutput/UserOutput";
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    console.log('[App.js] constructor')
+    console.log('[App.js] constructor');
   }
-  
+
   state = {
     persons: [
       { id: "1", name: "max", age: 28 },
@@ -23,18 +23,18 @@ class App extends Component {
     showPersons: false
   };
 
- static getDerivedStateFromProps(props, state ) {
-   console.log('[App.js] getDerivedStateFromProps', props)
-   return state;
- }
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
 
- componentWillMount() {
-  console.log('[App.js] componentWillMount')
-}
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  }
 
- componentDidMount() {
-   console.log('[App.js] componentDidMount')
- }
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
 
   nameChangedHandler = (event, id) => {
     // assigning an index to the variable personIndex
@@ -84,29 +84,29 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   };
   render() {
-    console.log('[App.js] render')
+    console.log('[App.js] render');
     let persons = null;
 
     // console.log("me", btnClass);
     if (this.state.showPersons) {
-      persons = 
+      persons =
         <Persons
-          persons={this.state.persons}
-          click={this.deletePersonhandler}
-          changed={this.nameChangedHandler}
-        />
+          persons={ this.state.persons }
+          click={ this.deletePersonhandler }
+          changed={ this.nameChangedHandler }
+        />;
     }
 
     return (
-      <div className={classes.App}>
-        {/* {this.state.showPersons === true ? */}
+      <div className={ classes.App }>
+        {/* {this.state.showPersons === true ? */ }
         <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          clicked={this.togglePersonHandler}
+          title={ this.props.appTitle }
+          showPersons={ this.state.showPersons }
+          persons={ this.state.persons }
+          clicked={ this.togglePersonHandler }
         />
-        {persons}
+        {persons }
       </div>
     );
   }
