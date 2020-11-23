@@ -20,7 +20,8 @@ class App extends Component {
     ],
     otherState: "other value",
     usernames: [{ username: "Syncere" }, { username: "LikeyMe" }],
-    showPersons: false
+    showPersons: false,
+    showCockpit: true
   };
 
   // static getDerivedStateFromProps(props, state) {
@@ -38,11 +39,11 @@ class App extends Component {
 
   shouldComponentUpdate(nextProps, nextState){
     console.log('[App.js] shouldComponentUpdate');
-    return true
+    return true;
   }
 
   componentDidUpdate(){
-    console.log('[App.js] componentDidUpdate')
+    console.log('[App.js] componentDidUpdate');
   }
 
   nameChangedHandler = (event, id) => {
@@ -109,12 +110,18 @@ class App extends Component {
     return (
       <div className={ classes.App }>
         {/* {this.state.showPersons === true ? */ }
-        <Cockpit
+        <button onClick={() => {
+          this.setState({showCockpit: false})
+        }}
+        >
+          Remove Cockpit
+        </button>
+        {this.state.showCockpit ? <Cockpit
           title={ this.props.appTitle }
           showPersons={ this.state.showPersons }
           persons={ this.state.persons }
           clicked={ this.togglePersonHandler }
-        />
+        /> : null}
         {persons }
       </div>
     );
