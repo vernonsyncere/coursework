@@ -20,7 +20,7 @@ class App extends Component {
     ],
     otherState: "other value",
     usernames: [{ username: "Syncere" }, { username: "LikeyMe" }],
-    showPersons: false,
+    showPersons: "false",
     showCockpit: true
   };
 
