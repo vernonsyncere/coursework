@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import classes from "./App.module.css";
 import Persons from "../components/Persons/Persons";
 import Cockpit from "../components/Cockpit/Cockpit";
+import AuthContext from "./context/auth-context";
 // import UserInput from "./UserInput/UserInput";
 // import UserOutput from "./UserOutput/UserOutput";
 
@@ -22,7 +23,8 @@ class App extends Component {
     usernames: [{ username: "Syncere" }, { username: "LikeyMe" }],
     showPersons: false,
     showCockpit: true,
-    changedCounter: 0
+    changedCounter: 0,
+    authenticated: false
   };
 
   // static getDerivedStateFromProps(props, state) {
@@ -38,12 +40,12 @@ class App extends Component {
     console.log('[App.js] componentDidMount');
   }
 
-  shouldComponentUpdate(nextProps, nextState){
+  shouldComponentUpdate(nextProps, nextState) {
     console.log('[App.js] shouldComponentUpdate');
     return true;
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     console.log('[App.js] componentDidUpdate');
   }
 
@@ -70,10 +72,10 @@ class App extends Component {
 
     // set state to the new updated state with the modifcation to whichever field
     this.setState((prevState, props) => {
-      return { 
-        persons: persons, 
-        changedCounter: prevState.changedCounter +1 
-      }
+      return {
+        persons: persons,
+        changedCounter: prevState.changedCounter + 1
+      };
     });
   };
   usernameChangedHandler = (event) => {
@@ -99,6 +101,12 @@ class App extends Component {
     // sets state at showPersons to be the opposite of what doesShow is
     this.setState({ showPersons: !doesShow });
   };
+
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
+
   render() {
     console.log('[App.js] render');
     let persons = null;
@@ -110,25 +118,32 @@ class App extends Component {
           persons={ this.state.persons }
           click={ this.deletePersonhandler }
           changed={ this.nameChangedHandler }
+          isAuthenticated={ this.state.authenticated }
         />;
     }
 
     return (
       <div className={ classes.App }>
         {/* {this.state.showPersons === true ? */ }
-        <button onClick={() => {
-          this.setState({showCockpit: false})
-        }}
+        <button onClick={ () => {
+          this.setState({ showCockpit: false });
+        } }
         >
           Remove Cockpit
         </button>
-        {this.state.showCockpit ? <Cockpit
-          title={ this.props.appTitle }
-          showPersons={ this.state.showPersons }
-          persons={ this.state.persons }
-          clicked={ this.togglePersonHandler }
-        /> : null}
-        {persons }
+        <AuthContext.Provider value ={{
+          authenticated:this.state.authenticated,
+          login: this.loginHandler
+        }}>
+          { this.state.showCockpit ? <Cockpit
+            title={ this.props.appTitle }
+            showPersons={ this.state.showPersons }
+            persons={ this.state.persons }
+            clicked={ this.togglePersonHandler }
+            login={ this.loginHandler }
+          /> : null }
+          { persons }
+        </AuthContext.Provider>
       </div>
     );
   }
