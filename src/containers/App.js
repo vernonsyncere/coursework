@@ -20,8 +20,9 @@ class App extends Component {
     ],
     otherState: "other value",
     usernames: [{ username: "Syncere" }, { username: "LikeyMe" }],
-    showPersons: "false",
-    showCockpit: true
+    showPersons: false,
+    showCockpit: true,
+    changedCounter: 0
   };
 
   // static getDerivedStateFromProps(props, state) {
@@ -68,7 +69,12 @@ class App extends Component {
     persons[personIndex] = person;
 
     // set state to the new updated state with the modifcation to whichever field
-    this.setState({ persons: persons });
+    this.setState((prevState, props) => {
+      return { 
+        persons: persons, 
+        changedCounter: prevState.changedCounter +1 
+      }
+    });
   };
   usernameChangedHandler = (event) => {
     // changing the username of the first two indexs in state. the first by what ever is typed in
